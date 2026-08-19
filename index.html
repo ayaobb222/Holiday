@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>摸鱼倒计时</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="circle one"></div>
+<div class="circle two"></div>
+
+
+<!-- =========================
+     主容器
+========================= -->
+
+<div class="container">
+
+
+    <!-- 设置 -->
+
+    <button
+        id="settingsButton"
+        class="settings-button"
+        title="设置"
+    >
+        ⚙️
+    </button>
+
+
+    <!-- 标题 -->
+
+    <div
+        id="pageTitle"
+        class="title"
+    >
+        🧑‍💻 摸鱼结束倒计时
+    </div>
+
+
+    <div
+        id="pageSubtitle"
+        class="subtitle"
+    >
+        今天也要努力摸鱼，然后准时下班！
+    </div>
+
+
+    <!-- 当前时间 -->
+
+    <div
+        id="clock"
+        class="clock"
+    >
+        00:00:00
+    </div>
+
+
+    <div
+        id="date"
+        class="date"
+    >
+        加载中...
+    </div>
+
+
+    <!-- =========================
+         摸鱼模式
+    ========================== -->
+
+    <div
+        id="workMode"
+    >
+
+        <div
+            id="countdownTitle"
+            class="countdown-title"
+        >
+            距离摸鱼结束还有
+        </div>
+
+
+        <div
+            id="countdown"
+            class="countdown"
+        >
+            00:00:00
+        </div>
+
+
+        <!-- 进度 -->
+
+        <div class="progress-wrap">
+
+            <div class="progress-info">
+
+                <span>
+                    今日摸鱼进度
+                </span>
+
+                <span id="percent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 数据 -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div
+                    id="minutes"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    剩余分钟
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="worked"
+                    class="stat-value"
+                >
+                    0%
+                </div>
+
+                <div class="stat-label">
+                    已经熬过
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="endTimeDisplay"
+                    class="stat-value"
+                >
+                    17:00
+                </div>
+
+                <div class="stat-label">
+                    下班时间
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         节日模式
+    ========================== -->
+
+    <div
+        id="holidayMode"
+        class="holiday-mode"
+    >
+
+        <div
+            id="holidayCountdownTitle"
+            class="countdown-title"
+        >
+            距离节日还有
+        </div>
+
+
+        <div
+            id="holidayCountdown"
+            class="holiday-countdown"
+        >
+            0 天
+        </div>
+
+
+        <div
+            id="holidayDate"
+            class="holiday-date"
+        >
+            2026年10月1日
+        </div>
+
+
+        <div
+            id="holidayHint"
+            class="holiday-hint"
+        >
+            🎉 再坚持一下，马上放假！
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         底部语录
+    ========================== -->
+
+    <div
+        id="footer"
+        class="footer"
+    >
+        ☕ 今日摸鱼宣言
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     设置弹窗
+====================================================== -->
+
+<div
+    id="modal"
+    class="modal"
+>
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-title">
+            ⚙️ 倒计时设置
+        </div>
+
+
+        <!-- =========================
+             当前倒计时
+        ========================== -->
+
+        <div class="settings-section">
+
+            <div class="section-title">
+                🎯 当前倒计时
+            </div>
+
+
+            <div
+                id="modeList"
+                class="mode-list"
+            >
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             工作时间
+        ========================== -->
+
+        <div
+            id="workSettings"
+            class="settings-section"
+        >
+
+            <div class="section-title">
+                🕐 工作时间
+            </div>
+
+
+            <div class="time-grid">
+
+
+                <div class="setting-item">
+
+                    <label>
+                        上班时间
+                    </label>
+
+                    <input
+                        id="startTimeInput"
+                        type="time"
+                    >
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <label>
+                        下班时间
+                    </label>
+
+                    <input
+                        id="endTimeInput"
+                        type="time"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="setting-item">
+
+                <label>
+                    语录自动切换
+                </label>
+
+
+                <select
+                    id="quoteIntervalInput"
+                >
+
+                    <option value="10">
+                        每 10 秒
+                    </option>
+
+                    <option value="30">
+                        每 30 秒
+                    </option>
+
+                    <option value="60">
+                        每 1 分钟
+                    </option>
+
+                    <option value="300">
+                        每 5 分钟
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             节日管理
+        ========================== -->
+
+        <div class="settings-section">
+
+
+            <div class="section-title">
+                🎉 节日管理
+            </div>
+
+
+            <div
+                id="holidayList"
+                class="holiday-list"
+            >
+            </div>
+
+
+            <button
+                id="addHolidayButton"
+                class="add-button"
+            >
+                ＋ 添加自定义节日
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================
+             语录管理
+        ========================== -->
+
+        <div
+            id="quoteSettings"
+            class="settings-section"
+        >
+
+
+            <div class="section-title">
+                💬 摸鱼语录
+            </div>
+
+
+            <div class="quote-tabs">
+
+
+                <button
+                    class="quote-tab active"
+                    data-category="normal"
+                >
+                    🐟 普通
+                </button>
+
+
+                <button
+                    class="quote-tab"
+                    data-category="warning"
+                >
+                    🚨 最后10分钟
+                </button>
+
+
+                <button
+                    class="quote-tab"
+                    data-category="danger"
+                >
+                    🔥 最后5分钟
+                </button>
+
+
+                <button
+                    class="quote-tab"
+                    data-category="offWork"
+                >
+                    🎉 下班
+                </button>
+
+
+                <button
+                    class="quote-tab"
+                    data-category="weekend"
+                >
+                    🍻 周末
+                </button>
+
+
+            </div>
+
+
+            <div
+                id="quoteCategoryDescription"
+                class="quote-category-description"
+            >
+                工作时间随机显示的普通摸鱼语录
+            </div>
+
+
+            <div
+                id="quoteList"
+                class="quote-list"
+            >
+            </div>
+
+
+            <button
+                id="addQuoteButton"
+                class="add-button"
+            >
+                ＋ 添加一句语录
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================
+             按钮
+        ========================== -->
+
+        <div class="buttons">
+
+
+            <button
+                id="resetButton"
+                class="reset"
+            >
+                ↩ 恢复默认
+            </button>
+
+
+            <button
+                id="cancelButton"
+                class="cancel"
+            >
+                取消
+            </button>
+
+
+            <button
+                id="saveButton"
+                class="save"
+            >
+                保存设置
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
